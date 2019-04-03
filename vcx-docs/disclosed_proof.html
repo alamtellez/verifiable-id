@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module disclosed_proof</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>disclosed_proof</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/alam/indy-sdk/vcx/wrappers/python3/vcx/api/disclosed_proof.py">/home/alam/indy-sdk/vcx/wrappers/python3/vcx/api/disclosed_proof.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="vcx.api.vcx_stateful.html#VcxStateful">vcx.api.vcx_stateful.VcxStateful</a>(<a href="vcx.api.vcx_base.html#VcxBase">vcx.api.vcx_base.VcxBase</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="disclosed_proof.html#DisclosedProof">DisclosedProof</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DisclosedProof">class <strong>DisclosedProof</strong></a>(<a href="vcx.api.vcx_stateful.html#VcxStateful">vcx.api.vcx_stateful.VcxStateful</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="disclosed_proof.html#DisclosedProof">DisclosedProof</a></dd>
+<dd><a href="vcx.api.vcx_stateful.html#VcxStateful">vcx.api.vcx_stateful.VcxStateful</a></dd>
+<dd><a href="vcx.api.vcx_base.html#VcxBase">vcx.api.vcx_base.VcxBase</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="DisclosedProof-__del__"><strong>__del__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="DisclosedProof-__init__"><strong>__init__</strong></a>(self, source_id:str)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="DisclosedProof-generate_proof"><strong>generate_proof</strong></a>(self, selected_creds:dict, self_attested_attrs:dict)</dt><dd><tt>Generates&nbsp;the&nbsp;proof<br>
+Example:<br>
+msg_id&nbsp;=&nbsp;'1'<br>
+phone_number&nbsp;=&nbsp;'8019119191'<br>
+connection&nbsp;=&nbsp;await&nbsp;Connection.<a href="#DisclosedProof-create">create</a>(source_id)<br>
+await&nbsp;connection.connect(phone_number)<br>
+disclosed_proof&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-create_with_msgid">create_with_msgid</a>(source_id,&nbsp;connection,&nbsp;msg_id)<br>
+await&nbsp;disclosed_proof.<a href="#DisclosedProof-generate_proof">generate_proof</a>({},&nbsp;{})<br>
+:param&nbsp;selected_creds:&nbsp;Credentials&nbsp;issued<br>
+:param&nbsp;self_attested_attrs:&nbsp;Self&nbsp;Attested&nbsp;Attributes<br>
+:return:&nbsp;None</tt></dd></dl>
+
+<dl><dt><a name="DisclosedProof-get_creds"><strong>get_creds</strong></a>(self) -&gt; dict</dt><dd><tt>Gets&nbsp;the&nbsp;credentials&nbsp;from&nbsp;a&nbsp;disclosed&nbsp;proof<br>
+Example:<br>
+msg_id&nbsp;=&nbsp;'1'<br>
+phone_number&nbsp;=&nbsp;'8019119191'<br>
+connection&nbsp;=&nbsp;await&nbsp;Connection.<a href="#DisclosedProof-create">create</a>(source_id)<br>
+await&nbsp;connection.connect(phone_number)<br>
+disclosed_proof&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-create_with_msgid">create_with_msgid</a>(source_id,&nbsp;connection,&nbsp;msg_id)<br>
+creds&nbsp;=&nbsp;await&nbsp;disclosed_proof.<a href="#DisclosedProof-get_creds">get_creds</a>()<br>
+:return:&nbsp;credentials</tt></dd></dl>
+
+<dl><dt><a name="DisclosedProof-get_state"><strong>get_state</strong></a>(self) -&gt; int</dt><dd><tt>Gets&nbsp;the&nbsp;state&nbsp;of&nbsp;the&nbsp;entity.<br>
+Example:<br>
+msg_id&nbsp;=&nbsp;'1'<br>
+phone_number&nbsp;=&nbsp;'8019119191'<br>
+connection&nbsp;=&nbsp;await&nbsp;Connection.<a href="#DisclosedProof-create">create</a>(source_id)<br>
+await&nbsp;connection.connect(phone_number)<br>
+disclosed_proof&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-create_with_msgid">create_with_msgid</a>(source_id,&nbsp;connection,&nbsp;msg_id)<br>
+assert&nbsp;await&nbsp;proof.<a href="#DisclosedProof-get_state">get_state</a>()&nbsp;==&nbsp;State.Initialized<br>
+:return:&nbsp;StateType</tt></dd></dl>
+
+<dl><dt><a name="DisclosedProof-release"><strong>release</strong></a>(self) -&gt; None</dt><dd><tt>Internal&nbsp;method&nbsp;used&nbsp;for&nbsp;memory&nbsp;management<br>
+:return:&nbsp;None</tt></dd></dl>
+
+<dl><dt><a name="DisclosedProof-send_proof"><strong>send_proof</strong></a>(self, connection:vcx.api.connection.Connection)</dt><dd><tt>Sends&nbsp;the&nbsp;proof&nbsp;to&nbsp;the&nbsp;Connection<br>
+Example:<br>
+msg_id&nbsp;=&nbsp;'1'<br>
+phone_number&nbsp;=&nbsp;'8019119191'<br>
+connection&nbsp;=&nbsp;await&nbsp;Connection.<a href="#DisclosedProof-create">create</a>(source_id)<br>
+await&nbsp;connection.connect(phone_number)<br>
+disclosed_proof&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-create_with_msgid">create_with_msgid</a>(source_id,&nbsp;connection,&nbsp;msg_id)<br>
+await&nbsp;disclosed_proof.<a href="#DisclosedProof-send_proof">send_proof</a>(connection)<br>
+:param&nbsp;connection:&nbsp;Connection<br>
+:return:&nbsp;None</tt></dd></dl>
+
+<dl><dt><a name="DisclosedProof-serialize"><strong>serialize</strong></a>(self) -&gt; dict</dt><dd><tt>Serialize&nbsp;the&nbsp;object<br>
+Example:<br>
+msg_id&nbsp;=&nbsp;'1'<br>
+phone_number&nbsp;=&nbsp;'8019119191'<br>
+connection&nbsp;=&nbsp;await&nbsp;Connection.<a href="#DisclosedProof-create">create</a>(source_id)<br>
+await&nbsp;connection.connect(phone_number)<br>
+disclosed_proof&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-create_with_msgid">create_with_msgid</a>(source_id,&nbsp;connection,&nbsp;msg_id)<br>
+data&nbsp;=&nbsp;await&nbsp;disclosed_proof.<a href="#DisclosedProof-serialize">serialize</a>()<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="DisclosedProof-update_state"><strong>update_state</strong></a>(self) -&gt; int</dt><dd><tt>Example:<br>
+msg_id&nbsp;=&nbsp;'1'<br>
+phone_number&nbsp;=&nbsp;'8019119191'<br>
+connection&nbsp;=&nbsp;await&nbsp;Connection.<a href="#DisclosedProof-create">create</a>(source_id)<br>
+await&nbsp;connection.connect(phone_number)<br>
+disclosed_proof&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-create_with_msgid">create_with_msgid</a>(source_id,&nbsp;connection,&nbsp;msg_id)<br>
+assert&nbsp;await&nbsp;disclosed_proof.<a href="#DisclosedProof-update_state">update_state</a>()&nbsp;==&nbsp;State.RequestReceived<br>
+:return:</tt></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="DisclosedProof-create"><strong>create</strong></a>(source_id:str, proof_request:str)</dt><dd><tt>Create&nbsp;a&nbsp;proof&nbsp;for&nbsp;fulfilling&nbsp;a&nbsp;corresponding&nbsp;proof&nbsp;request<br>
+:param&nbsp;source_id:&nbsp;Tag&nbsp;associated&nbsp;by&nbsp;user&nbsp;of&nbsp;sdk<br>
+:param&nbsp;proof_request:&nbsp;Proof&nbsp;Request&nbsp;data&nbsp;sent&nbsp;by&nbsp;requestor.<br>
+Example:<br>
+source_id&nbsp;=&nbsp;'sourceId'<br>
+request&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"@topic":&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"mid":&nbsp;9,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"tid":&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"@type":&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"PROOF_REQUEST",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"version":"1.0"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"msg_ref_id":&nbsp;"ymy5nth",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"proof_request_data":&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"Account&nbsp;Certificate",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"nonce":&nbsp;"838186471541979035208225",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"requested_attributes":&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"business_2":&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"business"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"email_1":&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"email"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name_0":&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"name"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"requested_predicates":&nbsp;{},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"version":&nbsp;"0.1"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+disclosed_proof&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-create">create</a>(source_id,&nbsp;request)<br>
+:return:&nbsp;Disclosed&nbsp;Proof&nbsp;Object</tt></dd></dl>
+
+<dl><dt><a name="DisclosedProof-create_with_msgid"><strong>create_with_msgid</strong></a>(source_id:str, connection:vcx.api.connection.Connection, msg_id:str)</dt><dd><tt>:param&nbsp;source_id:<br>
+:param&nbsp;connection:<br>
+:param&nbsp;msg_id:<br>
+Example:<br>
+msg_id&nbsp;=&nbsp;'1'<br>
+phone_number&nbsp;=&nbsp;'8019119191'<br>
+connection&nbsp;=&nbsp;await&nbsp;Connection.<a href="#DisclosedProof-create">create</a>(source_id)<br>
+await&nbsp;connection.connect(phone_number)<br>
+disclosed_proof&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-create_with_msgid">create_with_msgid</a>(source_id,&nbsp;connection,&nbsp;msg_id)<br>
+:return:&nbsp;<a href="#DisclosedProof">DisclosedProof</a></tt></dd></dl>
+
+<dl><dt><a name="DisclosedProof-deserialize"><strong>deserialize</strong></a>(data:dict)</dt><dd><tt>:param&nbsp;data:&nbsp;Data&nbsp;provided&nbsp;by&nbsp;the&nbsp;serialize&nbsp;method<br>
+Example:<br>
+msg_id&nbsp;=&nbsp;'1'<br>
+phone_number&nbsp;=&nbsp;'8019119191'<br>
+connection&nbsp;=&nbsp;await&nbsp;Connection.<a href="#DisclosedProof-create">create</a>(source_id)<br>
+await&nbsp;connection.connect(phone_number)<br>
+disclosed_proof&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-create_with_msgid">create_with_msgid</a>(source_id,&nbsp;connection,&nbsp;msg_id)<br>
+data&nbsp;=&nbsp;await&nbsp;disclosed_proof.<a href="#DisclosedProof-serialize">serialize</a>()<br>
+disclosed_proof2&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-deserialize">deserialize</a>(data)<br>
+:return:&nbsp;&nbsp;<a href="#DisclosedProof">DisclosedProof</a></tt></dd></dl>
+
+<dl><dt><a name="DisclosedProof-get_requests"><strong>get_requests</strong></a>(connection:vcx.api.connection.Connection) -&gt; dict</dt><dd><tt>Example:<br>
+msg_id&nbsp;=&nbsp;'1'<br>
+phone_number&nbsp;=&nbsp;'8019119191'<br>
+connection&nbsp;=&nbsp;await&nbsp;Connection.<a href="#DisclosedProof-create">create</a>(source_id)<br>
+await&nbsp;connection.connect(phone_number)<br>
+disclosed_proof&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-create_with_msgid">create_with_msgid</a>(source_id,&nbsp;connection,&nbsp;msg_id)<br>
+requests&nbsp;=&nbsp;await&nbsp;<a href="#DisclosedProof">DisclosedProof</a>.<a href="#DisclosedProof-get_requests">get_requests</a>(connection)<br>
+:param&nbsp;connection:&nbsp;Connection<br>
+:return:&nbsp;requests&nbsp;associated&nbsp;with&nbsp;the&nbsp;connection</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>proof_request</strong></dt>
+</dl>
+<hr>
+Data descriptors inherited from <a href="vcx.api.vcx_base.html#VcxBase">vcx.api.vcx_base.VcxBase</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>handle</strong></dt>
+</dl>
+<dl><dt><strong>logger</strong></dt>
+</dl>
+<dl><dt><strong>source_id</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="vcx.api.vcx_base.html#VcxBase">vcx.api.vcx_base.VcxBase</a>:<br>
+<dl><dt><strong>HANDLES</strong> = {}</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-POINTER"><strong>POINTER</strong></a>(...)</dt></dl>
+ <dl><dt><a name="-addressof"><strong>addressof</strong></a>(...)</dt><dd><tt><a href="#-addressof">addressof</a>(C&nbsp;instance)&nbsp;-&gt;&nbsp;integer<br>
+Return&nbsp;the&nbsp;address&nbsp;of&nbsp;the&nbsp;C&nbsp;instance&nbsp;internal&nbsp;buffer</tt></dd></dl>
+ <dl><dt><a name="-alignment"><strong>alignment</strong></a>(...)</dt><dd><tt><a href="#-alignment">alignment</a>(C&nbsp;type)&nbsp;-&gt;&nbsp;integer<br>
+<a href="#-alignment">alignment</a>(C&nbsp;instance)&nbsp;-&gt;&nbsp;integer<br>
+Return&nbsp;the&nbsp;alignment&nbsp;requirements&nbsp;of&nbsp;a&nbsp;C&nbsp;instance</tt></dd></dl>
+ <dl><dt><a name="-byref"><strong>byref</strong></a>(...)</dt><dd><tt><a href="#-byref">byref</a>(C&nbsp;instance[,&nbsp;offset=0])&nbsp;-&gt;&nbsp;byref-object<br>
+Return&nbsp;a&nbsp;pointer&nbsp;lookalike&nbsp;to&nbsp;a&nbsp;C&nbsp;instance,&nbsp;only&nbsp;usable<br>
+as&nbsp;function&nbsp;argument</tt></dd></dl>
+ <dl><dt><a name="-get_errno"><strong>get_errno</strong></a>(...)</dt></dl>
+ <dl><dt><a name="-pointer"><strong>pointer</strong></a>(...)</dt></dl>
+ <dl><dt><a name="-resize"><strong>resize</strong></a>(...)</dt><dd><tt>Resize&nbsp;the&nbsp;memory&nbsp;buffer&nbsp;of&nbsp;a&nbsp;ctypes&nbsp;instance</tt></dd></dl>
+ <dl><dt><a name="-set_errno"><strong>set_errno</strong></a>(...)</dt></dl>
+ <dl><dt><a name="-sizeof"><strong>sizeof</strong></a>(...)</dt><dd><tt><a href="#-sizeof">sizeof</a>(C&nbsp;type)&nbsp;-&gt;&nbsp;integer<br>
+<a href="#-sizeof">sizeof</a>(C&nbsp;instance)&nbsp;-&gt;&nbsp;integer<br>
+Return&nbsp;the&nbsp;size&nbsp;in&nbsp;bytes&nbsp;of&nbsp;a&nbsp;C&nbsp;instance</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>DEFAULT_MODE</strong> = 0<br>
+<strong>Optional</strong> = typing.Optional<br>
+<strong>RTLD_GLOBAL</strong> = 256<br>
+<strong>RTLD_LOCAL</strong> = 0<br>
+<strong>cdll</strong> = &lt;ctypes.LibraryLoader object&gt;<br>
+<strong>memmove</strong> = &lt;CFunctionType object&gt;<br>
+<strong>memset</strong> = &lt;CFunctionType object&gt;<br>
+<strong>pydll</strong> = &lt;ctypes.LibraryLoader object&gt;<br>
+<strong>pythonapi</strong> = &lt;PyDLL 'None', handle 7f17342a1168&gt;</td></tr></table>
+</body></html>

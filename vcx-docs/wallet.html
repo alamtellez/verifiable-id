@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module wallet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>wallet</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/alam/indy-sdk/vcx/wrappers/python3/vcx/api/wallet.py">/home/alam/indy-sdk/vcx/wrappers/python3/vcx/api/wallet.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="logging.html">logging</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="wallet.html#Wallet">Wallet</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Wallet">class <strong>Wallet</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Static methods defined here:<br>
+<dl><dt><a name="Wallet-add_record"><strong>add_record</strong></a>(type_:str, id:str, value:str, tags:str)</dt><dd><tt>:param&nbsp;type_:&nbsp;String<br>
+:param&nbsp;id:&nbsp;String<br>
+:param&nbsp;value:&nbsp;String<br>
+:param&nbsp;tags:&nbsp;Dictionary<br>
+Example:<br>
+import&nbsp;json<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-add_record">add_record</a>({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'id':&nbsp;'RecordId',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'tags':&nbsp;json.dumps({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'tag1':&nbsp;'unencrypted&nbsp;value1',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'~encryptedTag',&nbsp;'this&nbsp;value&nbsp;is&nbsp;encrypted,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'integerTag',&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'type_':&nbsp;'TestType',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'value':&nbsp;'RecordValue'<br>
+})<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Wallet-add_record_tags"><strong>add_record_tags</strong></a>(type_:str, id:str, tags:str)</dt><dd><tt>Adds&nbsp;tags&nbsp;to&nbsp;a&nbsp;record&nbsp;already&nbsp;stored&nbsp;in&nbsp;the&nbsp;storage&nbsp;wallet.<br>
+:param&nbsp;type_:&nbsp;String<br>
+:param&nbsp;id:&nbsp;String<br>
+:param&nbsp;tags:&nbsp;String<br>
+Example:<br>
+import&nbsp;json<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-add_record">add_record</a>({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'id':&nbsp;'RecordId',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'tags':&nbsp;'{}',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'type_':&nbsp;'TestType',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'value':&nbsp;'RecordValue<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-add_record_tags">add_record_tags</a>('TestType',&nbsp;'RecordId',&nbsp;json.dumps({'addthistag':'valuetag1'}))<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Wallet-close_search"><strong>close_search</strong></a>(handle:int)</dt></dl>
+
+<dl><dt><a name="Wallet-create_payment_address"><strong>create_payment_address</strong></a>(seed:str=None) -&gt; str</dt><dd><tt>Creates&nbsp;a&nbsp;payment&nbsp;address&nbsp;inside&nbsp;the&nbsp;wallet.<br>
+:param&nbsp;seed:&nbsp;String<br>
+Example:<br>
+address&nbsp;=&nbsp;await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-create_payment_address">create_payment_address</a>('00000000000000000000000001234567')<br>
+:return:&nbsp;String</tt></dd></dl>
+
+<dl><dt><a name="Wallet-delete_record"><strong>delete_record</strong></a>(type_:str, id:str)</dt><dd><tt>Delete&nbsp;a&nbsp;record&nbsp;from&nbsp;the&nbsp;storage&nbsp;wallet.<br>
+&nbsp;<br>
+:param&nbsp;type_:<br>
+:param&nbsp;id:<br>
+Example:<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-add_record">add_record</a>({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'id':&nbsp;'RecordId',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'tags':&nbsp;json.dumps({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'tag1':&nbsp;'unencrypted&nbsp;value1',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'~encryptedTag',&nbsp;'this&nbsp;value&nbsp;is&nbsp;encrypted,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'integerTag',&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'type_':&nbsp;'TestType',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'value':&nbsp;'RecordValue'<br>
+})<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-delete_record">delete_record</a>('TestType',&nbsp;'RecordId')<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Wallet-delete_record_tags"><strong>delete_record_tags</strong></a>(type_:str, id:str, tags:list)</dt><dd><tt>Delete&nbsp;tags&nbsp;associated&nbsp;with&nbsp;a&nbsp;record<br>
+:param&nbsp;type_:<br>
+:param&nbsp;id:<br>
+:param&nbsp;tags:<br>
+&nbsp;<br>
+Example:<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-add_record">add_record</a>({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'id':&nbsp;'RecordId',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'tags':&nbsp;json.dumps({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'tag1':&nbsp;'unencrypted&nbsp;value1',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'~encryptedTag',&nbsp;'this&nbsp;value&nbsp;is&nbsp;encrypted,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'integerTag',&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'type_':&nbsp;'TestType',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'value':&nbsp;'RecordValue'<br>
+})<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-delete_record_tags">delete_record_tags</a>('TestType',&nbsp;'RecordId',&nbsp;['tag1',&nbsp;'integerTag'])<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Wallet-export"><strong>export</strong></a>(path, backup_key)</dt><dd><tt>Exports&nbsp;opened&nbsp;wallet<br>
+:param&nbsp;path:&nbsp;Path&nbsp;to&nbsp;export&nbsp;wallet&nbsp;to&nbsp;User's&nbsp;File&nbsp;System.<br>
+:param&nbsp;backupKey:&nbsp;String&nbsp;representing&nbsp;the&nbsp;User's&nbsp;Key&nbsp;for&nbsp;securing&nbsp;(encrypting)&nbsp;the&nbsp;exported&nbsp;<a href="#Wallet">Wallet</a>.<br>
+:return:<br>
+Error&nbsp;code&nbsp;-&nbsp;success&nbsp;indicates&nbsp;that&nbsp;the&nbsp;wallet&nbsp;was&nbsp;successfully&nbsp;exported.</tt></dd></dl>
+
+<dl><dt><a name="Wallet-get_record"><strong>get_record</strong></a>(type_:str, id:str, options:str)</dt><dd><tt>Retrieves&nbsp;a&nbsp;record&nbsp;from&nbsp;the&nbsp;wallet&nbsp;storage.<br>
+:param&nbsp;type_:&nbsp;String<br>
+:param&nbsp;id:&nbsp;String<br>
+:param&nbsp;options:&nbsp;String<br>
+Example:<br>
+import&nbsp;json<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-add_record">add_record</a>({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'id':&nbsp;'RecordId',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'tags':&nbsp;json.dumps({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'tag1':&nbsp;'unencrypted&nbsp;value1',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'~encryptedTag',&nbsp;'this&nbsp;value&nbsp;is&nbsp;encrypted,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'integerTag',&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'type_':&nbsp;'TestType',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'value':&nbsp;'RecordValue'<br>
+})<br>
+options&nbsp;=&nbsp;json.dumps({"retrieveType":&nbsp;True,&nbsp;"retrieveValue":&nbsp;True,&nbsp;"retrieveTags":&nbsp;True})<br>
+record&nbsp;=&nbsp;await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-get_record">get_record</a>('TestType',&nbsp;'RecordId',&nbsp;options)<br>
+:return:<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Wallet-get_token_info"><strong>get_token_info</strong></a>(handle:int) -&gt; str</dt><dd><tt>Retrieves&nbsp;from&nbsp;the&nbsp;ledger&nbsp;token&nbsp;info&nbsp;associated&nbsp;with&nbsp;the&nbsp;wallet.<br>
+:param&nbsp;handle:<br>
+Example:<br>
+payment_handle&nbsp;=&nbsp;0&nbsp;//&nbsp;payment&nbsp;handle&nbsp;is&nbsp;always&nbsp;0,&nbsp;for&nbsp;now.<br>
+info&nbsp;=&nbsp;await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-get_token_info">get_token_info</a>(payment_handle)<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Wallet-import_wallet"><strong>import_wallet</strong></a>(config)</dt><dd><tt>Imports&nbsp;wallet&nbsp;from&nbsp;file&nbsp;with&nbsp;given&nbsp;key.<br>
+Cannot&nbsp;be&nbsp;used&nbsp;if&nbsp;wallet&nbsp;is&nbsp;already&nbsp;opened&nbsp;(Especially&nbsp;if&nbsp;vcx_init&nbsp;has&nbsp;already&nbsp;been&nbsp;used).<br>
+:param&nbsp;config:&nbsp;Can&nbsp;be&nbsp;same&nbsp;config&nbsp;that&nbsp;is&nbsp;passed&nbsp;to&nbsp;vcx_init.<br>
+Must&nbsp;include:&nbsp;'{"wallet_name":"","wallet_key":"","exported_wallet_path":"","backup_key":""}'<br>
+:return:<br>
+Error&nbsp;code&nbsp;-&nbsp;success&nbsp;indicates&nbsp;that&nbsp;the&nbsp;wallet&nbsp;was&nbsp;successfully&nbsp;imported.</tt></dd></dl>
+
+<dl><dt><a name="Wallet-open_search"><strong>open_search</strong></a>(type_:str, query:dict, options:dict)</dt><dd><tt>Opens&nbsp;a&nbsp;search&nbsp;handle&nbsp;within&nbsp;the&nbsp;storage&nbsp;wallet.<br>
+&nbsp;<br>
+:param&nbsp;type_:&nbsp;String<br>
+:param&nbsp;query:&nbsp;dictionary<br>
+:param&nbsp;options:&nbsp;dictionary<br>
+Example:<br>
+query_json&nbsp;=&nbsp;{"tagName1":&nbsp;"str1"}<br>
+type_&nbsp;=&nbsp;'TestType'<br>
+search_handle&nbsp;=&nbsp;await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-open_search">open_search</a>(type_,&nbsp;query_json,&nbsp;None)<br>
+:return:&nbsp;int</tt></dd></dl>
+
+<dl><dt><a name="Wallet-search_next_records"><strong>search_next_records</strong></a>(handle:int, count:int)</dt><dd><tt>Searches&nbsp;for&nbsp;next&nbsp;n&nbsp;record&nbsp;from&nbsp;an&nbsp;open&nbsp;search&nbsp;handle<br>
+&nbsp;<br>
+:param&nbsp;handle:&nbsp;int<br>
+:param&nbsp;count:&nbsp;int<br>
+&nbsp;Example:<br>
+query_json&nbsp;=&nbsp;{"tagName1":&nbsp;"str1"}<br>
+type_&nbsp;=&nbsp;'TestType'<br>
+search_handle&nbsp;=&nbsp;await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-open_search">open_search</a>(type_,&nbsp;query_json,&nbsp;None)<br>
+results&nbsp;=&nbsp;await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-search_next_records">search_next_records</a>(search_handle,&nbsp;5)<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Wallet-send_tokens"><strong>send_tokens</strong></a>(payment_handle:int, tokens:int, address:str) -&gt; str</dt><dd><tt>Sends&nbsp;tokens&nbsp;to&nbsp;an&nbsp;address<br>
+payment_handle&nbsp;is&nbsp;always&nbsp;0<br>
+:param&nbsp;payment_handle:&nbsp;Integer<br>
+:param&nbsp;tokens:&nbsp;Integer<br>
+:param&nbsp;address:&nbsp;String<br>
+Example:<br>
+payment_handle&nbsp;=&nbsp;0<br>
+amount&nbsp;=&nbsp;1000<br>
+address&nbsp;=&nbsp;await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-create_payment_address">create_payment_address</a>('00000000000000000000000001234567')<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-send_tokens">send_tokens</a>(payment_handle,&nbsp;amount,&nbsp;address)<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Wallet-update_record_tags"><strong>update_record_tags</strong></a>(type_:str, id:str, tags:str)</dt><dd><tt>Updates&nbsp;the&nbsp;tags&nbsp;on&nbsp;a&nbsp;record,&nbsp;removing&nbsp;any&nbsp;previous&nbsp;value.<br>
+:param&nbsp;type_:&nbsp;String<br>
+:param&nbsp;id:&nbsp;String<br>
+:param&nbsp;tags:&nbsp;String<br>
+Example:<br>
+import&nbsp;json<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-add_record">add_record</a>({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'id':&nbsp;'RecordId',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'tags':&nbsp;json.dumps({'foobar':'this&nbsp;value&nbsp;will&nbsp;get&nbsp;overwritten'}),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'type_':&nbsp;'TestType',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'value':&nbsp;'RecordValue<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-update_record_tags">update_record_tags</a>('TestType',&nbsp;'RecordId',&nbsp;json.dumps({'foobar':'new&nbsp;value'}))<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Wallet-update_record_value"><strong>update_record_value</strong></a>(type_:str, id:str, value:str)</dt><dd><tt>Updates&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;record<br>
+:param&nbsp;type_:&nbsp;String<br>
+:param&nbsp;id:&nbsp;String<br>
+:param&nbsp;value:&nbsp;String<br>
+Example:<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-add_record">add_record</a>({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'id':&nbsp;'RecordId',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'tags':&nbsp;'{}',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'type_':&nbsp;'TestType',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'value':&nbsp;'this&nbsp;will&nbsp;be&nbsp;overwritten'&nbsp;})<br>
+await&nbsp;<a href="#Wallet">Wallet</a>.update_record('TestType',&nbsp;'RecordId',&nbsp;'new&nbsp;value')<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Wallet-validate_payment_address"><strong>validate_payment_address</strong></a>(address:str) -&gt; None</dt><dd><tt>Determines&nbsp;whether&nbsp;a&nbsp;payment&nbsp;address&nbsp;is&nbsp;valid&nbsp;or&nbsp;not<br>
+:param&nbsp;address:&nbsp;String<br>
+Example:<br>
+address&nbsp;=&nbsp;await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-create_payment_address">create_payment_address</a>('00000000000000000000000001234567')<br>
+b&nbsp;=&nbsp;await&nbsp;<a href="#Wallet">Wallet</a>.<a href="#Wallet-validate_payment_address">validate_payment_address</a>(address)<br>
+:return:&nbsp;Boolean</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-POINTER"><strong>POINTER</strong></a>(...)</dt></dl>
+ <dl><dt><a name="-addressof"><strong>addressof</strong></a>(...)</dt><dd><tt><a href="#-addressof">addressof</a>(C&nbsp;instance)&nbsp;-&gt;&nbsp;integer<br>
+Return&nbsp;the&nbsp;address&nbsp;of&nbsp;the&nbsp;C&nbsp;instance&nbsp;internal&nbsp;buffer</tt></dd></dl>
+ <dl><dt><a name="-alignment"><strong>alignment</strong></a>(...)</dt><dd><tt><a href="#-alignment">alignment</a>(C&nbsp;type)&nbsp;-&gt;&nbsp;integer<br>
+<a href="#-alignment">alignment</a>(C&nbsp;instance)&nbsp;-&gt;&nbsp;integer<br>
+Return&nbsp;the&nbsp;alignment&nbsp;requirements&nbsp;of&nbsp;a&nbsp;C&nbsp;instance</tt></dd></dl>
+ <dl><dt><a name="-byref"><strong>byref</strong></a>(...)</dt><dd><tt><a href="#-byref">byref</a>(C&nbsp;instance[,&nbsp;offset=0])&nbsp;-&gt;&nbsp;byref-<a href="builtins.html#object">object</a><br>
+Return&nbsp;a&nbsp;pointer&nbsp;lookalike&nbsp;to&nbsp;a&nbsp;C&nbsp;instance,&nbsp;only&nbsp;usable<br>
+as&nbsp;function&nbsp;argument</tt></dd></dl>
+ <dl><dt><a name="-get_errno"><strong>get_errno</strong></a>(...)</dt></dl>
+ <dl><dt><a name="-pointer"><strong>pointer</strong></a>(...)</dt></dl>
+ <dl><dt><a name="-resize"><strong>resize</strong></a>(...)</dt><dd><tt>Resize&nbsp;the&nbsp;memory&nbsp;buffer&nbsp;of&nbsp;a&nbsp;ctypes&nbsp;instance</tt></dd></dl>
+ <dl><dt><a name="-set_errno"><strong>set_errno</strong></a>(...)</dt></dl>
+ <dl><dt><a name="-sizeof"><strong>sizeof</strong></a>(...)</dt><dd><tt><a href="#-sizeof">sizeof</a>(C&nbsp;type)&nbsp;-&gt;&nbsp;integer<br>
+<a href="#-sizeof">sizeof</a>(C&nbsp;instance)&nbsp;-&gt;&nbsp;integer<br>
+Return&nbsp;the&nbsp;size&nbsp;in&nbsp;bytes&nbsp;of&nbsp;a&nbsp;C&nbsp;instance</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>DEFAULT_MODE</strong> = 0<br>
+<strong>RTLD_GLOBAL</strong> = 256<br>
+<strong>RTLD_LOCAL</strong> = 0<br>
+<strong>cdll</strong> = &lt;ctypes.LibraryLoader object&gt;<br>
+<strong>memmove</strong> = &lt;CFunctionType object&gt;<br>
+<strong>memset</strong> = &lt;CFunctionType object&gt;<br>
+<strong>pydll</strong> = &lt;ctypes.LibraryLoader object&gt;<br>
+<strong>pythonapi</strong> = &lt;PyDLL 'None', handle 7f17342a1168&gt;</td></tr></table>
+</body></html>

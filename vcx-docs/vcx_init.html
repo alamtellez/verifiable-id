@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module vcx_init</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>vcx_init</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/alam/indy-sdk/vcx/wrappers/python3/vcx/api/vcx_init.py">/home/alam/indy-sdk/vcx/wrappers/python3/vcx/api/vcx_init.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="logging.html">logging</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-vcx_init"><strong>vcx_init</strong></a>(config_path:str) -&gt; None</dt><dd><tt>Initializes&nbsp;VCX&nbsp;with&nbsp;config&nbsp;file.<br>
+:param&nbsp;config_path:&nbsp;String<br>
+Example:<br>
+await&nbsp;<a href="#-vcx_init">vcx_init</a>('/home/username/vcxconfig.json')<br>
+:return:</tt></dd></dl>
+ <dl><dt><a name="-vcx_init_with_config"><strong>vcx_init_with_config</strong></a>(config:str) -&gt; None</dt><dd><tt>:param&nbsp;config:<br>
+Example:<br>
+config&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;"agency_did":&nbsp;"VsKV7grR1BUE29mG2Fm2kX",<br>
+&nbsp;&nbsp;"agency_verkey":&nbsp;"Hezce2UWMZ3wUhVkh2LfKSs8nDzWwzs2Win7EzNN3YaR",<br>
+&nbsp;&nbsp;"agency_endpoint":&nbsp;"<a href="http://localhost:8080">http://localhost:8080</a>",<br>
+&nbsp;&nbsp;"genesis_path":"/var/lib/indy/verity-staging/pool_transactions_genesis",<br>
+&nbsp;&nbsp;"institution_name":&nbsp;"institution",<br>
+&nbsp;&nbsp;"institution_logo_url":&nbsp;"<a href="http://robohash.org/234">http://robohash.org/234</a>",<br>
+&nbsp;&nbsp;"institution_did":&nbsp;"EwsFhWVoc3Fwqzrwe998aQ",<br>
+&nbsp;&nbsp;"institution_verkey":&nbsp;"8brs38hPDkw5yhtzyk2tz7zkp8ijTyWnER165zDQbpK6",<br>
+&nbsp;&nbsp;"remote_to_sdk_did":&nbsp;"EtfeMFytvYTKnWwqTScp9D",<br>
+&nbsp;&nbsp;"remote_to_sdk_verkey":&nbsp;"8a7hZDyJK1nNCizRCKMr4H4QbDm8Gg2vcbDRab8SVfsi",<br>
+&nbsp;&nbsp;"sdk_to_remote_did":&nbsp;"KacwZ2ndG6396KXJ9NDDw6",<br>
+&nbsp;&nbsp;"sdk_to_remote_verkey":&nbsp;"B8LgZGxEPcpTJfZkeqXuKNLihM1Awm8yidqsNwYi5QGc"<br>
+}<br>
+await&nbsp;<a href="#-vcx_init_with_config">vcx_init_with_config</a>(config)<br>
+:return:</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__all__</strong> = ['vcx_init', 'vcx_init_with_config']</td></tr></table>
+</body></html>
