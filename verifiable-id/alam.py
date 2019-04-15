@@ -53,9 +53,10 @@ def index():
         else:
             name = res
             global provisionConfig
+            global config
             provisionConfig['wallet_name'] = "{}{}".format(name, "_wallet")
             config = await vcx_agent_provision(json.dumps(provisionConfig))
-            global config
+
             config = json.loads(config)
             # Set some additional configuration options specific to alice
             config['institution_name'] = name
