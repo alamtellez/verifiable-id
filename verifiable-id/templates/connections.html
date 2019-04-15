@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block nav %}
+{% if name %}
+    <nav id="nav">
+        <a href={{ url_for("index") }} class="icon fa-home active"><span>Home</span></a>
+        <a href={{ url_for("connections"), _anchor='work') }} class="icon fa-folder inactive"><span>Work</span></a>
+        <a href={{ url_for("offers"), _anchor='work') }} class="icon fa-envelope inactive"><span>Contact</span></a>
+        <a href="https://twitter.com/ajlkn" class="icon fa-twitter inactive"><span>Twitter</span></a>
+    </nav>
+{% endif %}
+
+{% endblock %}
+{% block content %}
+<article id="home" class="panel intro">
+
+</article>
+
+<!-- Work -->
+<article id="work" class="panel">
+  <header>
+		{% if error %}
+			<span>{{ error }}</span>
+		{% endif %}
+    <form action="#" method="post">
+      <div>
+        <div class="row">
+          <div class="col-6 col-12-medium">
+            <input type="text" name="details" placeholder="Detalles" />
+          </div>
+          <div class="col-12">
+            <input type="submit" value="Send Message" />
+          </div>
+        </div>
+      </div>
+    </form>
+	</header>
+  <section>
+
+    {% if name %}
+      <h2>Conexiones de {{ name }}!</h2>
+      {% if len(json_connections) > 0 %}
+        <ul>
+        {% for conn in json_connections %}
+          <li class="conn">{{ conn }}</li>
+        {% endfor %}
+        </ul>
+
+      {% else %}
+        <h3>No hay conexiones establecidas</h3>
+      {% endif %}
+
+    {% endif %}
+  </section>
+
+</article>
+
+<!-- Contact -->
+<article id="contact" class="panel">
+	<header>
+		<h2>Contact Me</h2>
+	</header>
+	<form action="#" method="post">
+		<div>
+			<div class="row">
+				<div class="col-6 col-12-medium">
+					<input type="text" name="name" placeholder="Name" />
+				</div>
+				<div class="col-6 col-12-medium">
+					<input type="text" name="email" placeholder="Email" />
+				</div>
+				<div class="col-12">
+					<input type="text" name="subject" placeholder="Subject" />
+				</div>
+				<div class="col-12">
+					<textarea name="message" placeholder="Message" rows="6"></textarea>
+				</div>
+				<div class="col-12">
+					<input type="submit" value="Send Message" />
+				</div>
+			</div>
+		</div>
+	</form>
+</article>
+{% endblock %}

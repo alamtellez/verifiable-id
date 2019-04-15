@@ -18,7 +18,7 @@ from vcx.state import State
 app = Flask(__name__, static_url_path='/static')
 
 name = ""
-connections = []
+alice_connections = []
 credentials = []
 payment_plugin = cdll.LoadLibrary('libnullpay' + file_ext())
 payment_plugin.nullpay_init()
@@ -34,6 +34,15 @@ provisionConfig = {
 }
 config = None
 
+def load_json_connections():
+    global alice_connections
+    res = []
+    for conn in alice_connections:
+        j_conn = conn.serialize()
+        res.append(j_conn)
+
+    return res
+
 @app.route("/", methods=["POST", "GET"])
 def index():
     global name
@@ -43,7 +52,8 @@ def index():
             return render_template("index.html", name=None, error="Elige un nombre")
         else:
             name = res
-            global provisionConfig['wallet_name'] = "{}{}".format(name, "_wallet")
+            global provisionConfig
+            provisionConfig['wallet_name'] = "{}{}".format(name, "_wallet")
             config = await vcx_agent_provision(json.dumps(provisionConfig))
             global config
             config = json.loads(config)
@@ -52,6 +62,7 @@ def index():
             config['institution_logo_url'] = 'http://robohash.org/456'
             config['genesis_path'] = 'docker.txn'
             await vcx_init_with_config(json.dumps(config))
+
             return render_template("index.html", name=name)
 
     else:
@@ -60,9 +71,36 @@ def index():
         else:
             return render_template("index.html", name=name)
 
+@app.route("/connections", methods=["POST", "GET"])
+def connections():
+    global name
+    if request.method == "POST":
+        if request.form["details"] == "":
+            error = "Invalido"
+            return render_template('connections.html', error=error, name=name, json_connections=[])
+        else:
+            invite = request.form["details"]
+            jdetails = json.loads(details)
+            new_connection = await Connection.create_with_details('faber', json.dumps(jdetails))
+            await new_connection.connect('{"use_public_did": true}')
+            await new_connection.update_state()
+            global alice_connections
+            alice_connections.append(new_connection)
+            json_connections= load_json_connections()
+            return render_template("connections.html", json_connections=json_connections, name=name)
+    else:
+        json_connections = load_json_connections
+        return render_template('connections.html', name=name, json_connections=[])
+
 @app.route("/offers", methods=["POST", "GET"])
 def offers():
-    return render_template("invitations.html")
+    pass
+
+
+
+
+
+    return render_template("connections.html")
 
 
 if __name__ == "__main__":

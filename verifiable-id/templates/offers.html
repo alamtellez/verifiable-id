@@ -2,83 +2,49 @@
 {% block title %}Index{% endblock %}
 
 {% block nav %}
-  <nav id="nav">
-      <a href="{{ url_for('index') }}" class="icon fa-home inactive"><span>Home</span></a>
-      <a href="{{ url_for('offers') }}" class="icon fa-folder active"><span>Work</span></a>
-      <a href="#contact" class="icon fa-envelope inactive"><span>Contact</span></a>
-      <a href="https://twitter.com/ajlkn" class="icon fa-twitter inactive"><span>Twitter</span></a>
-  </nav>
+{% if name %}
+    <nav id="nav">
+        <a href={{ url_for("index") }} class="icon fa-home active"><span>Home</span></a>
+        <a href={{ url_for("connections"), _anchor='work') }} class="icon fa-folder inactive"><span>Work</span></a>
+        <a href={{ url_for("offers"), _anchor='contact') }} class="icon fa-envelope inactive"><span>Contact</span></a>
+        <a href="https://twitter.com/ajlkn" class="icon fa-twitter inactive"><span>Twitter</span></a>
+    </nav>
+{% endif %}
 
 {% endblock %}
 {% block content %}
 <article id="home" class="panel intro">
 	<header>
-		<!-- {% if error %}
+		{% if error %}
 			<span>{{ error }}</span>
 		{% endif %}
-		{% if name %}
-			<h1>Hola {{ name }}!</h1>
-			<p>Esta es tu pagina de inicio</p>
-		{% else %}
-			<form action="#" method="post">
-				<div>
-					<div class="row">
-						<div class="col-6 col-12-medium">
-							<input type="text" name="name" placeholder="Name" />
-						</div>
-						<div class="col-12">
-							<input type="submit" value="Send Message" />
-						</div>
-					</div>
-				</div>
-			</form>
-		{% endif %} -->
-
+    <form action="#" method="post">
+      <div>
+        <div class="row">
+          <div class="col-6 col-12-medium">
+            <input type="text" name="details" placeholder="Detalles" />
+          </div>
+          <div class="col-12">
+            <input type="submit" value="Send Message" />
+          </div>
+        </div>
+      </div>
+    </form>
 	</header>
-	<!-- <a href="#work" class="jumplink pic">
-		<span class="arrow icon fa-chevron-right"><span>See my work</span></span>
-		<img src="images/me.jpg" alt="" />
-	</a>
-	<section>
-		<div class="row">
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic01.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic02.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic03.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic04.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic05.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic06.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic07.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic08.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic09.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic10.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic11.jpg" alt=""></a>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-				<a href="#" class="image fit"><img src="images/pic12.jpg" alt=""></a>
-			</div>
-		</div>
-	</section> -->
+  {% if name %}
+    <h2>Conexiones de {{ name }}!</h2>
+    {% if len(json_connections) > 0 %}
+      <ul>
+      {% for conn in json_connections %}
+        <li class="conn">{{ conn }}</li>
+      {% endfor %}
+      </ul>
+
+    {% else %}
+      <h3>No hay conexiones establecidas</h3>
+    {% endif %}
+
+  {% endif %}
 </article>
 
 <!-- Work -->
