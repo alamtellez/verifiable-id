@@ -2,20 +2,18 @@
 {% block title %}Index{% endblock %}
 
 {% block nav %}
-{% if name %}
-    <nav id="nav">
-        <a href={{ url_for("index") }} class="icon fa-home active"><span>Home</span></a>
-        <a href={{ url_for("offers") }} class="icon fa-folder inactive"><span>Work</span></a>
-        <a href="#contact" class="icon fa-envelope inactive"><span>Contact</span></a>
-        <a href="https://twitter.com/ajlkn" class="icon fa-twitter inactive"><span>Twitter</span></a>
-    </nav>
-{% endif %}
+  <nav id="nav">
+      <a href="{{ url_for('index') }}" class="icon fa-home inactive"><span>Home</span></a>
+      <a href="{{ url_for('offers') }}" class="icon fa-folder active"><span>Work</span></a>
+      <a href="#contact" class="icon fa-envelope inactive"><span>Contact</span></a>
+      <a href="https://twitter.com/ajlkn" class="icon fa-twitter inactive"><span>Twitter</span></a>
+  </nav>
 
 {% endblock %}
 {% block content %}
 <article id="home" class="panel intro">
 	<header>
-		{% if error %}
+		<!-- {% if error %}
 			<span>{{ error }}</span>
 		{% endif %}
 		{% if name %}
@@ -34,7 +32,7 @@
 					</div>
 				</div>
 			</form>
-		{% endif %}
+		{% endif %} -->
 
 	</header>
 	<!-- <a href="#work" class="jumplink pic">

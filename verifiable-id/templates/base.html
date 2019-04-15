@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="static/css/main.css" />
+    <link rel="stylesheet" href="static/css/styles.css" />
     <noscript>
         <link rel="stylesheet" href="static/css/noscript.css" /></noscript>
 </head>
@@ -20,14 +21,8 @@
     <!-- Wrapper-->
     <div id="wrapper">
         {% block nav %}{% endblock %}
-        <!-- Nav -->
-        <nav id="nav">
-            <a href="{{ url_for('index') }}" class="icon fa-home"><span>Inicio</span></a>
-            <a href="{{ url_for('index') }}" class="icon fa-folder"><span>Work</span></a>
-            <a href="#contact" class="icon fa-envelope"><span>Contact</span></a>
-            <a href="https://twitter.com/ajlkn" class="icon fa-twitter"><span>Twitter</span></a>
-        </nav>
 
+       <!-- Nav -->
         <!-- Main -->
         <div id="main">
             {% block content %}{% endblock %}

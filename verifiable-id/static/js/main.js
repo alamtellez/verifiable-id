@@ -80,8 +80,8 @@
 						.hide();
 
 				// Activate link.
-					$link
-						.addClass('active');
+					// $link
+					// 	.addClass('active');
 
 				// Reset scroll.
 					$window.scrollTop(0);
@@ -117,10 +117,10 @@
 					$panels.addClass('inactive');
 
 				// Deactivate all links.
-					$nav_links.removeClass('active');
+					// $nav_links.removeClass('active');
 
 				// Activate target link.
-					$link.addClass('active');
+					// $link.addClass('active');
 
 				// Set max/min height.
 					$main
