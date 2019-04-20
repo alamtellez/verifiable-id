@@ -1,4 +1,4 @@
-from flask import (Flask, redirect, render_template, request, session, url_for)
+from quart import (Quart, redirect, render_template, request, session, url_for)
 import asyncio
 import json
 from ctypes import cdll
@@ -15,7 +15,7 @@ from vcx.api.utils import vcx_agent_provision
 from vcx.api.vcx_init import vcx_init_with_config
 from vcx.state import State
 
-app = Flask(__name__, static_url_path='/static')
+app = Quart(__name__, static_url_path='/static')
 
 name = ""
 alice_connections = []
@@ -34,6 +34,7 @@ provisionConfig = {
 }
 config = None
 
+
 def load_json_connections():
     global alice_connections
     res = []
@@ -43,15 +44,16 @@ def load_json_connections():
 
     return res
 
+
 @app.route("/", methods=["POST", "GET"])
-def index():
+async def index():
     global name
     if request.method == "POST":
-        res = request.form["name"]
-        if res == "":
-            return render_template("index.html", name=None, error="Elige un nombre")
+        form = await request.form
+        if form['name'] == "":
+            return await render_template("index.html", name=None, error="Elige un nombre")
         else:
-            name = res
+            name = form['name']
             global provisionConfig
             global config
             provisionConfig['wallet_name'] = "{}{}".format(name, "_wallet")
@@ -64,16 +66,17 @@ def index():
             config['genesis_path'] = 'docker.txn'
             await vcx_init_with_config(json.dumps(config))
 
-            return render_template("index.html", name=name)
+            return await render_template("index.html", name=name)
 
     else:
         if name == "":
-            return render_template("index.html", name=None)
+            return await render_template("index.html", name=None)
         else:
-            return render_template("index.html", name=name)
+            return await render_template("index.html", name=name)
+
 
 @app.route("/connections", methods=["POST", "GET"])
-def connections():
+async def connections():
     global name
     if request.method == "POST":
         if request.form["details"] == "":
@@ -81,28 +84,25 @@ def connections():
             return render_template('connections.html', error=error, name=name, json_connections=[])
         else:
             invite = request.form["details"]
-            jdetails = json.loads(details)
+            jdetails = json.loads(invite)
             new_connection = await Connection.create_with_details('faber', json.dumps(jdetails))
             await new_connection.connect('{"use_public_did": true}')
             await new_connection.update_state()
             global alice_connections
             alice_connections.append(new_connection)
-            json_connections= load_json_connections()
+            json_connections = load_json_connections()
             return render_template("connections.html", json_connections=json_connections, name=name)
     else:
         json_connections = load_json_connections
         return render_template('connections.html', name=name, json_connections=[])
 
+
 @app.route("/offers", methods=["POST", "GET"])
-def offers():
+async def offers():
     pass
-
-
-
-
 
     return render_template("connections.html")
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=3000)
+    app.run(port=3000)

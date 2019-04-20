@@ -1,4 +1,4 @@
-from flask import (Flask, redirect, render_template, request, session, url_for)
+from quart import (Quart, redirect, render_template, request, session, url_for)
 import asyncio
 import json
 import random
@@ -18,7 +18,7 @@ from vcx.api.utils import vcx_agent_provision
 from vcx.api.vcx_init import vcx_init_with_config
 from vcx.state import State, ProofState
 
-app = Flask(__name__, static_url_path='/static')
+app = Quart(__name__, static_url_path='/static')
 
 name = "SRE"
 sre_connections = []
