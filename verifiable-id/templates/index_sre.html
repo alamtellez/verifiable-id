@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %} Index {% endblock %}
+
+{% block nav %}
+{% if name %}
+    <nav id="nav">
+        <a href={{ url_for("index") }} class="icon fa-home active"><span>Home</span></a>
+        <a href={{ url_for("connections") }} class="icon fa-folder inactive"><span>Work</span></a>
+        <a href="#contact" class="icon fa-envelope inactive"><span>Contact</span></a>
+        <a href="https://twitter.com/ajlkn" class="icon fa-twitter inactive"><span>Twitter</span></a>
+    </nav>
+{% endif %}
+
+{% endblock %}
+{% block content %}
+<article id="home" class="panel intro">
+	<header>
+		{% if error %}
+			<span>{{ error }}</span>
+		{% endif %}
+		{% if name %}
+			<h1>Hola {{ name }}!</h1>
+			<p>Esta es tu pagina de inicio</p>
+			<h4>Nueva Conexion</h4>
+			<form id="new_conn">
+				<div>
+					<div class="row">
+						<div class="col-6 col-12-medium">
+							<input type="text" name="curp" placeholder="CURP" />
+						</div>
+						<div class="col-12">
+							<input type="submit" value="Send Message" />
+						</div>
+					</div>
+				</div>
+			</form>
+		{% endif %}
+
+	</header>
+	<div class="col-12 success" style="display: none;"></div>
+	<!-- <a href="#work" class="jumplink pic">
+		<span class="arrow icon fa-chevron-right"><span>See my work</span></span>
+		<img src="images/me.jpg" alt="" />
+	</a>
+	<section>
+		<div class="row">
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic01.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic02.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic03.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic04.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic05.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic06.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic07.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic08.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic09.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic10.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic11.jpg" alt=""></a>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+				<a href="#" class="image fit"><img src="images/pic12.jpg" alt=""></a>
+			</div>
+		</div>
+	</section> -->
+</article>
+
+<!-- Work -->
+{% endblock %}
+
+{% block custom_js %}
+
+<script src="static/js/sre_conn.js"></script>
+
+{% endblock %}

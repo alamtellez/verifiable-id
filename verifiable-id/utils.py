@@ -273,3 +273,13 @@ async def create_postgres_wallet(provisionConfig):
         if ex.error_code == ErrorCode.PoolLedgerConfigAlreadyExistsError:
             pass
     print("Postgres wallet provisioned")
+
+
+def load_json_connections():
+    global alice_connections
+    res = []
+    for conn in alice_connections:
+        j_conn = conn.serialize()
+        res.append(j_conn)
+
+    return res

@@ -15,7 +15,7 @@ from vcx.api.utils import vcx_agent_provision
 from vcx.api.vcx_init import vcx_init_with_config
 from vcx.state import State
 
-app = Quart(__name__, static_url_path='/static')
+app = Quart(__name__, static_url_path='/static', template_folder="templates/")
 
 name = ""
 alice_connections = []
@@ -79,9 +79,10 @@ async def index():
 async def connections():
     global name
     if request.method == "POST":
-        if request.form["details"] == "":
+        form = await request.form
+        if form["details"] == "":
             error = "Invalido"
-            return render_template('connections.html', error=error, name=name, json_connections=[])
+            return await render_template('connections.html', error=error, name=name, json_connections=[])
         else:
             invite = request.form["details"]
             jdetails = json.loads(invite)
@@ -91,18 +92,18 @@ async def connections():
             global alice_connections
             alice_connections.append(new_connection)
             json_connections = load_json_connections()
-            return render_template("connections.html", json_connections=json_connections, name=name)
+            return await render_template("connections.html", json_connections=json_connections, name=name)
     else:
-        json_connections = load_json_connections
-        return render_template('connections.html', name=name, json_connections=[])
+        json_connections = load_json_connections()
+        return await render_template('connections.html', name=name, json_connections=[])
 
 
 @app.route("/offers", methods=["POST", "GET"])
 async def offers():
     pass
 
-    return render_template("connections.html")
+    return await render_template("connections.html")
 
 
 if __name__ == "__main__":
-    app.run(port=3000)
+    app.run(host='localhost', port=3300)

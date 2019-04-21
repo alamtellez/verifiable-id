@@ -5,8 +5,8 @@
 {% if name %}
     <nav id="nav">
         <a href={{ url_for("index") }} class="icon fa-home active"><span>Home</span></a>
-        <a href={{ url_for("connections"), _anchor='work') }} class="icon fa-folder inactive"><span>Work</span></a>
-        <a href={{ url_for("offers"), _anchor='work') }} class="icon fa-envelope inactive"><span>Contact</span></a>
+        <a href={{ url_for("connections") }} class="icon fa-folder inactive"><span>Work</span></a>
+        <a href={{ url_for("offers") }} class="icon fa-envelope inactive"><span>Contact</span></a>
         <a href="https://twitter.com/ajlkn" class="icon fa-twitter inactive"><span>Twitter</span></a>
     </nav>
 {% endif %}

@@ -4,8 +4,8 @@
 {% block nav %}
 {% if name %}
     <nav id="nav">
-        <a href={{ url_for("index") }} class="icon fa-home active"><span>Home</span></a>
-        <a href={{ url_for("connections") }} class="icon fa-folder inactive"><span>Work</span></a>
+        <a href={{ url_for("index") }} class="icon fa-home"><span>Home</span></a>
+        <a href={{ url_for("connections") }} class="icon fa-folder"><span>Work</span></a>
         <a href="#contact" class="icon fa-envelope inactive"><span>Contact</span></a>
         <a href="https://twitter.com/ajlkn" class="icon fa-twitter inactive"><span>Twitter</span></a>
     </nav>
@@ -22,7 +22,7 @@
 			<h1>Hola {{ name }}!</h1>
 			<p>Esta es tu pagina de inicio</p>
 		{% else %}
-			<form action="#" method="post">
+			<form action="" method="post">
 				<div>
 					<div class="row">
 						<div class="col-6 col-12-medium">
