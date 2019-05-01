@@ -6,7 +6,7 @@ import platform
 
 import logging
 
-from demo_utils import file_ext
+from utils import file_ext
 from vcx.api.connection import Connection
 from vcx.api.credential import Credential
 from vcx.api.disclosed_proof import DisclosedProof
@@ -20,9 +20,10 @@ provisionConfig = {
     'agency_url': 'http://localhost:8080',
     'agency_did': 'VsKV7grR1BUE29mG2Fm2kX',
     'agency_verkey': 'Hezce2UWMZ3wUhVkh2LfKSs8nDzWwzs2Win7EzNN3YaR',
-    'wallet_name': 'alice_wallet',
+    'wallet_name': 'user_wallet',
     'wallet_key': '123',
     'payment_method': 'null',
+    # 'enterprise_seed': '000000000000000000000000Trustee1'
 }
 
 async def main():
@@ -37,7 +38,7 @@ async def main():
     config['institution_name'] = 'alice'
     config['institution_logo_url'] = 'http://robohash.org/456'
     config['genesis_path'] = 'docker.txn'
-    with open('alice.json', 'w') as outfile:
+    with open('alam.json', 'w') as outfile:
         json.dump(json.dumps(config), outfile)
     print("#8 Initialize libvcx with new configuration")
     session = await vcx_init_with_config(json.dumps(config))
