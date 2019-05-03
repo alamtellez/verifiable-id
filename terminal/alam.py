@@ -30,7 +30,8 @@ async def main():
 
     payment_plugin = cdll.LoadLibrary('libnullpay' + file_ext())
     payment_plugin.nullpay_init()
-
+    print("Iniciando Alam...")
+    print("..................")
     print("#1 Proporcionar cartera de llaves")
     config = await vcx_agent_provision(json.dumps(provisionConfig))
     config = json.loads(config)
@@ -40,10 +41,15 @@ async def main():
     config['genesis_path'] = 'docker.txn'
     with open('alam.json', 'w') as outfile:
         json.dump(json.dumps(config), outfile)
+    # print("#1 Cargar configuracion inicial")
+    # with open('sre.json') as conf:
+    #     config = json.load(conf)
+    # print(type(config))
+    # config = json.loads(config)
     print("#8 Inicializar VCX Libreria con configuracion de cartera")
     session = await vcx_init_with_config(json.dumps(config))
 
-    print("#9 Ingresar detalles de invitacion")
+    print("#9 Ingresar detalles de invitacion SRE")
     details = input('Detalles de invitacion: ')
 
     print("#10 Convertir string a json y crear conexion")
@@ -68,28 +74,37 @@ async def main():
         sleep(2)
         await credential.update_state()
         credential_state = await credential.get_state()
+    print("Credencial aceptada!")
+    print("#9 Ingresar detalles de invitacion Banco")
+    details = input('Detalles de invitacion: ')
 
+    print("#10 Convertir string a json y crear conexion")
+    jdetails = json.loads(details)
+    connection_to_bank = await Connection.create_with_details('bank', json.dumps(jdetails))
+    await connection_to_bank.connect('{"use_public_did": true}')
+    await connection_to_bank.update_state()
+    sleep(10)
     print("#22 Hacer request de solicitudes de pruebas")
-    requests = await DisclosedProof.get_requests(connection_to_sre)
+    requests = await DisclosedProof.get_requests(connection_to_bank)
 
     print("#23 Una vez recibida la solicitud, crear nueva prueba con requisitos")
-    proof = await DisclosedProof.create('proof', requests[0])
+    proof = await DisclosedProof.create('proof_pass', requests[0])
 
     print("#24 Consultar cartera por credenciales que satisfagan la informacion requerida")
     credentials = await proof.get_creds()
-
+    print(credentials)
     # Use the first available credentials to satisfy the proof request
     for attr in credentials['attrs']:
         credentials['attrs'][attr] = {
             'credential': credentials['attrs'][attr][0]
         }
-    print(credentials)
+    # print(credentials)
 
     print("#25 Generar la prueba con las credenciales y atributos necesarios")
     await proof.generate_proof(credentials, {})
 
-    print("#26 Enviar prueba de informacion a la SRE")
-    await proof.send_proof(connection_to_sre)
+    print("#26 Enviar prueba de informacion al Banco")
+    await proof.send_proof(connection_to_bank)
 
 
 if __name__ == '__main__':

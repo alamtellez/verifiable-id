@@ -37,12 +37,14 @@ provisionConfig = {
 
 
 async def main():
-    doc_version = 1.3
+    doc_version = 1.4
     """
         This section is to initialize the credentials and wallet
     """
     payment_plugin = cdll.LoadLibrary('libnullpay' + file_ext())
     payment_plugin.nullpay_init()
+    print("Iniciando SRE...")
+    print("..................")
     # 1 Provision an agent and wallet, get back configuration details
     print("#1 Proporcionar cartera de llaves")
     config = await vcx_agent_provision(json.dumps(provisionConfig))
@@ -113,7 +115,7 @@ async def main():
     """
         New invitation details
     """
-    print("#5 Crear nueva conexion para Alam y enviar invitacion")
+    print("#5 SRE crea nueva conexion para Alam y envia invitacion")
     connection_to_alam = await Connection.create('other')
     await connection_to_alam.connect('{"use_public_did": true}')
     await connection_to_alam.update_state()
@@ -180,34 +182,34 @@ async def main():
         await credential.update_state()
         credential_state = await credential.get_state()
 
-    proof_attrs = [
-        {'name': 'name', 'restrictions': [{'issuer_did': config['institution_did']}]},
-        {'name': 'date_of_birth', 'restrictions': [{'issuer_did': config['institution_did']}]},
-        {'name': 'nationality', 'restrictions': [{'issuer_did': config['institution_did']}]}
-    ]
+    # proof_attrs = [
+    #     {'name': 'name', 'restrictions': [{'issuer_did': config['institution_did']}]},
+    #     {'name': 'date_of_birth', 'restrictions': [{'issuer_did': config['institution_did']}]},
+    #     {'name': 'nationality', 'restrictions': [{'issuer_did': config['institution_did']}]}
+    # ]
 
-    print("#19 Crear solicitud de prueba de informacion")
-    print("En este caso hacemos una solicitud de documentos pero tienen que estar firmados exclusivamente por la SRE")
-    proof = await Proof.create('proof_uuid', 'proof_from_alam', proof_attrs, {})
+    # print("#19 Crear solicitud de prueba de informacion")
+    # print("En este caso hacemos una solicitud de documentos pero tienen que estar firmados exclusivamente por la SRE")
+    # proof = await Proof.create('proof_uuid', 'proof_from_alam', proof_attrs, {})
 
-    print("#20 Enviar solicitud de informacion")
-    await proof.request_proof(connection_to_alam)
+    # print("#20 Enviar solicitud de informacion")
+    # await proof.request_proof(connection_to_alam)
 
-    print("#21 Esperar respuesta de Alam")
-    proof_state = await proof.get_state()
-    while proof_state != State.Accepted:
-        sleep(2)
-        await proof.update_state()
-        proof_state = await proof.get_state()
+    # print("#21 Esperar respuesta de Alam")
+    # proof_state = await proof.get_state()
+    # while proof_state != State.Accepted:
+    #     sleep(2)
+    #     await proof.update_state()
+    #     proof_state = await proof.get_state()
 
-    print("#27 Procesar la prueba, comprobar firma digital del emisor, secreto maestro de Alam e informacion valida")
-    await proof.get_proof(connection_to_alam)
+    # print("#27 Procesar la prueba, comprobar firma digital del emisor, secreto maestro de Alam e informacion valida")
+    # await proof.get_proof(connection_to_alam)
 
-    print("#28 Validando prueba...")
-    if proof.proof_state == ProofState.Verified:
-        print("Prueba verificada")
-    else:
-        print("Informacion invalida")
+    # print("#28 Validando prueba...")
+    # if proof.proof_state == ProofState.Verified:
+    #     print("Prueba verificada")
+    # else:
+    #     print("Informacion invalida")
 
 
 if __name__ == '__main__':
