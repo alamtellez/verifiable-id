@@ -8,17 +8,13 @@ $(document).ready(function() {
 				curp : $('#curp').val(),
 			},
 			type : 'POST',
-			url : '/new_conn'
-		})
-		.done(function(data) {
-
-			if (data.error) {
-
+			url : '/new_conn',
+			success: function (response) {
+				console.log(response);
+			},
+			error: function (error) {
+				console.log(error);
 			}
-			else {
-				$('.success').text(data.details).show();
-			}
-
 		});
 		event.preventDefault();
 

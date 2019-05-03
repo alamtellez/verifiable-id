@@ -6,7 +6,7 @@ from time import sleep
 import platform
 
 import logging
-
+from models import Holder
 from utils import file_ext
 from vcx.api.connection import Connection
 from vcx.api.credential import Credential
@@ -17,9 +17,7 @@ from vcx.state import State
 
 app = Quart(__name__, static_url_path='/static', template_folder="templates/")
 
-name = ""
-alice_connections = []
-credentials = []
+alam_model = Holder({}, None)
 payment_plugin = cdll.LoadLibrary('libnullpay' + file_ext())
 payment_plugin.nullpay_init()
 
@@ -36,7 +34,7 @@ config = None
 
 
 def load_json_connections():
-    global alice_connections
+    global alam_model
     res = []
     for conn in alice_connections:
         j_conn = conn.serialize()
@@ -47,16 +45,16 @@ def load_json_connections():
 
 @app.route("/", methods=["POST", "GET"])
 async def index():
-    global name
+    global alam_model
     if request.method == "POST":
         form = await request.form
         if form['name'] == "":
             return await render_template("index.html", name=None, error="Elige un nombre")
         else:
-            name = form['name']
+            alam_model.name = form['name']
             global provisionConfig
             global config
-            provisionConfig['wallet_name'] = "{}{}".format(name, "_wallet")
+            provisionConfig['wallet_name'] = "{}{}".format(alam_model.name, "_wallet")
             config = await vcx_agent_provision(json.dumps(provisionConfig))
 
             config = json.loads(config)
@@ -66,13 +64,28 @@ async def index():
             config['genesis_path'] = 'docker.txn'
             await vcx_init_with_config(json.dumps(config))
 
-            return await render_template("index.html", name=name)
+            return await render_template("index.html", name=alam_model.name)
 
     else:
-        if name == "":
+        if alam_model.name == None:
             return await render_template("index.html", name=None)
         else:
-            return await render_template("index.html", name=name)
+            return await render_template("index.html", name=alam_model.name)
+
+
+@app.route('/accept_new_conn', methods=['POST'])
+async def accept_new_conn():
+    global alam_model
+    if request.method == "POST":
+        form = await request.form
+        conn = form["conn"]
+        # Create new connection and return the invite details
+        jdetails = json.loads(conn)
+        connection_to_sre = await Connection.create_with_details('sre', json.dumps(jdetails))
+        await connection_to_sre.connect('{"use_public_did": true}')
+        await connection_to_sre.update_state()
+        alam_model.connection[jdetails["senderDetail"]["name"]] = connection_to_sre
+        return await redirect(url_for('connections'))
 
 
 @app.route("/connections", methods=["POST", "GET"])

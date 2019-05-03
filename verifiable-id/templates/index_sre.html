@@ -22,11 +22,11 @@
 			<h1>Hola {{ name }}!</h1>
 			<p>Esta es tu pagina de inicio</p>
 			<h4>Nueva Conexion</h4>
-			<form id="new_conn">
+			<form action="/new_conn" method="POST">
 				<div>
 					<div class="row">
 						<div class="col-6 col-12-medium">
-							<input type="text" name="curp" placeholder="CURP" />
+							<input id="curp" type="text" name="curp" placeholder="CURP" />
 						</div>
 						<div class="col-12">
 							<input type="submit" value="Send Message" />
@@ -37,7 +37,7 @@
 		{% endif %}
 
 	</header>
-	<div class="col-12 success" style="display: none;"></div>
+	<div class="col-12" id="success" style="display: none;"></div>
 	<!-- <a href="#work" class="jumplink pic">
 		<span class="arrow icon fa-chevron-right"><span>See my work</span></span>
 		<img src="images/me.jpg" alt="" />
@@ -87,8 +87,3 @@
 <!-- Work -->
 {% endblock %}
 
-{% block custom_js %}
-
-<script src="static/js/sre_conn.js"></script>
-
-{% endblock %}

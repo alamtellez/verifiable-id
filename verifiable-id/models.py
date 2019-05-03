@@ -2,19 +2,19 @@
 
 class Holder:
     
-    def __init__(self, provConfig, config):
-        self.provConfig = provConfig
+    def __init__(self, config, name):
         self.config = config
-        self.connections = []
+        self.name = name
+        self.connection = {}
         self.offers = []
         self.requests = []
-        self.credentials []
+        self.credentials = []
 
 class Issuer(Holder):
 
-    def __init__(self, prov, conf):
-        super().__init__(prov, conf)
-        self.schema = None
-        self.cred_def = None
-        self.cred_iss = None
+    def __init__(self, conf, name, schema_conf, cd_conf, cred_iss):
+        super().__init__(conf, name)
+        self.schema = schema_conf
+        self.cred_def = cd_conf
+        self.cred_iss = cred_iss
         self.proofs = []

@@ -31,7 +31,7 @@ async def main():
     payment_plugin = cdll.LoadLibrary('libnullpay' + file_ext())
     payment_plugin.nullpay_init()
 
-    print("#7 Provision an agent and wallet, get back configuration details")
+    print("#1 Proporcionar cartera de llaves")
     config = await vcx_agent_provision(json.dumps(provisionConfig))
     config = json.loads(config)
     # Set some additional configuration options specific to alice
@@ -40,42 +40,42 @@ async def main():
     config['genesis_path'] = 'docker.txn'
     with open('alam.json', 'w') as outfile:
         json.dump(json.dumps(config), outfile)
-    print("#8 Initialize libvcx with new configuration")
+    print("#8 Inicializar VCX Libreria con configuracion de cartera")
     session = await vcx_init_with_config(json.dumps(config))
 
-    print("#9 Input sre.py invitation details")
-    details = input('invite details: ')
+    print("#9 Ingresar detalles de invitacion")
+    details = input('Detalles de invitacion: ')
 
-    print("#10 Convert to valid json and string and create a connection to sre")
+    print("#10 Convertir string a json y crear conexion")
     jdetails = json.loads(details)
     connection_to_sre = await Connection.create_with_details('sre', json.dumps(jdetails))
     await connection_to_sre.connect('{"use_public_did": true}')
     await connection_to_sre.update_state()
 
-    print("#11 Wait for sre.py to issue a credential offer")
+    print("#11 Esperar a que SRE emita oferta de credencial")
     sleep(10)
     offers = await Credential.get_offers(connection_to_sre)
 
     # Create a credential object from the credential offer
     credential = await Credential.create('credential', offers[0])
 
-    print("#15 After receiving credential offer, send credential request")
+    print("#15 Una vez recibida la oferta, responder a la peticion")
     await credential.send_request(connection_to_sre, 0)
 
-    print("#16 Poll agency and accept credential offer from sre")
+    print("#16 Esperar respuesta de SRE y aceptar credencial")
     credential_state = await credential.get_state()
     while credential_state != State.Accepted:
         sleep(2)
         await credential.update_state()
         credential_state = await credential.get_state()
 
-    print("#22 Poll agency for a proof request")
+    print("#22 Hacer request de solicitudes de pruebas")
     requests = await DisclosedProof.get_requests(connection_to_sre)
 
-    print("#23 Create a Disclosed proof object from proof request")
+    print("#23 Una vez recibida la solicitud, crear nueva prueba con requisitos")
     proof = await DisclosedProof.create('proof', requests[0])
 
-    print("#24 Query for credentials in the wallet that satisfy the proof request")
+    print("#24 Consultar cartera por credenciales que satisfagan la informacion requerida")
     credentials = await proof.get_creds()
 
     # Use the first available credentials to satisfy the proof request
@@ -83,11 +83,12 @@ async def main():
         credentials['attrs'][attr] = {
             'credential': credentials['attrs'][attr][0]
         }
+    print(credentials)
 
-    print("#25 Generate the proof")
+    print("#25 Generar la prueba con las credenciales y atributos necesarios")
     await proof.generate_proof(credentials, {})
 
-    print("#26 Send the proof to sre")
+    print("#26 Enviar prueba de informacion a la SRE")
     await proof.send_proof(connection_to_sre)
 
 

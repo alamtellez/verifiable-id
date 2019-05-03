@@ -5,6 +5,7 @@ from ctypes import cdll
 from time import sleep
 import platform
 from time import sleep
+from models import Issuer
 
 import logging
 
@@ -29,6 +30,7 @@ credentials = []
 payment_plugin = cdll.LoadLibrary('libnullpay' + file_ext())
 payment_plugin.nullpay_init()
 
+
 """
     This is the privisional configuration for the SRE entity
     It is mainly for initialization purposes.
@@ -43,83 +45,150 @@ provisionConfig = {
   'enterprise_seed':'000000000000000000000000Trustee1'
 }
 
-config = None
+def init_sre():
 
+    print("#1 Cargar configuracion inicial")
+    with open('sre.json') as conf:
+        config = json.load(conf)
+    with open('schema.json') as conf:
+        schema_config = json.load(conf)
+    with open('cred_def.json') as conf:
+        cred_def_config = json.load(conf)
+    with open('cred_iss.json') as conf:
+        cred_iss_config = json.load(conf)
+    model = Issuer(config, None, schema_config, cred_def_config, cred_iss_config)
+    return model
+
+    
+sre_model = init_sre()
 
 @app.route("/", methods=["GET"])
 async def index():
     
-    global name
-    global provisionConfig
-    global config
-    if name == "":
+    global sre_model
+    if sre_model.name == None:
         
         
         # VCX provides agent and wallet to user and returns system config
-        print("#1 VCX provides agent and wallet to user and returns system config")
-        config = await vcx_agent_provision(json.dumps(provisionConfig))
-        config = json.loads(config)
-        print(config)
-        # Additional info
-        config['institution_name'] = 'SRE'
-        config['institution_logo_url'] = 'http://robohash.org/234'
-        config['genesis_path'] = 'docker.txn'
+        # print("#1 VCX provides agent and wallet to user and returns system config")
+        # config = await vcx_agent_provision(json.dumps(provisionConfig))
+        # config = json.loads(config)
+        # print(config)
+        # # Additional info
+        # config['institution_name'] = 'SRE'
+        # config['institution_logo_url'] = 'http://robohash.org/234'
+        # config['genesis_path'] = 'docker.txn'
 
-        # Initialize libvcx with agent and wallet config
-        print("#2 Initialize libvcx with agent and wallet config")
-        await vcx_init_with_config(json.dumps(config))
+        # print("#1 Cargar configuracion inicial")
+        # with open('sre.json') as conf:
+        #     config = json.load(conf)
+        # config = json.loads(config)
+        print("#2 Inicializar VCX Libreria con configuracion de cartera")
+        session = await vcx_init_with_config(json.dumps(sre_model.config))
         # Create a new schema on the ledger
-        print("#3 Create a new schema on the ledger")
-        version = format("%d.%d.%d" % (random.randint(1, 101), random.randint(1, 101), random.randint(1, 101)))
-        schema = await Schema.create('pass_uuid', 'degree schema', version, ['name', 'date_of_birth', 'passport_id', 'nationality', 'gender'], 0)
+        print("#3 Load already created schema on the ledger")
+        # with open('schema.json') as conf:
+        #     schema_config = json.load(conf)
+        # # schema_config = json.loads(config)
+        schema = await Schema.deserialize(sre_model.schema)
         schema_id = await schema.get_schema_id()
         #4 Create a new credential definition on the ledger
-        print("#4 Create a new credential definition on the ledger")
-        cred_def = await CredentialDef.create('credef_uuid', 'degree', schema_id, 0)
-        cred_def_handle = cred_def.handle
+        # print("#4 Create a new credential definition on the ledger")
+        # cred_def = await CredentialDef.create('credef_uuid', 'degree', schema_id, 0)
+        # cred_def_handle = cred_def.handle
+        # cred_def_id = await cred_def.get_cred_def_id()
+        # print("#4 Cargar definicion de credencial ya hecha en el ledger")
+        # with open('cred_def.json') as conf:
+        #     cred_def_config = json.load(conf)
+        # cred_def_config = json.loads(config)
+        cred_def = await CredentialDef.deserialize(sre_model.cred_def)
         cred_def_id = await cred_def.get_cred_def_id()
-        name = "SRE"
-        return await render_template("index_sre.html", name=name)
+
+        sre_model.name = "SRE"
+        return await render_template("index_sre.html", name=sre_model.name)
     else:
-        return await render_template("index.html", name=name)
+        return await render_template("index_sre.html", name=sre_model.name)
 
     
 @app.route('/new_conn', methods=['POST'])
 async def new_conn():
+    global sre_model
+    if request.method == "POST":
+        
+        form = await request.form
+        curp = form["curp"]
+        # Create new connection and return the invite details
+        new_conn = await Connection.create(curp)
+        print("Creo")
+        await new_conn.connect('{"use_public_did": true}')
+        await new_conn.update_state()
+        sre_model.connection = new_conn
+        details = await new_conn.invite_details(False)
+        print("**invite details**")
+        print(json.dumps(details))
+        print("******************")
+        return await redirect(url_for('connections'))
 
 
-    global sre_connections
-    form = await request.form
-    curp = form["curp"]
-    # Create new connection and return the invite details
-    new_conn = await Connection.create(curp)
-    await new_conn.connect('{"use_public_did": true}')
-    await new_conn.update_state()
-    sre_connections[curp] = new_conn
-    details = await new_conn.invite_details(False)
-    print("**invite details**")
-    print(json.dumps(details))
-    print("******************")
-    return await jsonify({'details' : json.dumps(details)})
+@app.route('/offer_credential', methods=['POST'])
+async def offer_credential():
+    global sre_model
+    if request.method == "POST":
+        
+        form = await request.form
+        curp = form["curp"]
+        print("#4 Load already created Credential Issuer")
+        credential = await IssuerCredential.deserialize(sre_model.cred_iss)
+        await credential.send_offer(sre_model.connection[curp])
+        await credential.update_state()
+        return await redirect(url_for('connections'))
 
 
 
 @app.route("/connections", methods=["POST", "GET"])
 async def connections():
-    global name
+    global sre_model
     if request.method == "POST":
-        if request.form["details"] == "":
-            error = "Invalido"
-            return await render_template('connections.html', error=error, name=name, json_connections=[])
+        form = await request.form
+        curp = form["curp"]
+        credential = await IssuerCredential.deserialize(sre_model.cred_iss)
+        await credential.send_offer(sre_model.connection[curp])
+        await credential.update_state()
+        return await redirect(url_for('offers'))
     else:
-        json_connections = load_json_connections
-        return await render_template('connections.html', name=name, json_connections=[])
+        pendiente = None
+        aceptada = None
+        for key, value in sre_model.connection:
+            curp = key
+            connection_state = await sre_model.value.get_state()
+            if connection_state != State.Accepted:
+                pendiente = True
+            else:
+                aceptada = True
+        return await render_template('sre_connections.html', pendiente=pendiente, aceptada=aceptada, curp=curp)
 
 
 @app.route("/offers", methods=["POST", "GET"])
 async def offers():
-
-    return await render_template("connections.html")
+    global sre_model
+    if request.method == "POST":
+        form = await request.form
+        curp = form["curp"]
+        credential = await IssuerCredential.deserialize(sre_model.cred_iss)
+        await credential.send_credential(sre_model.connection[curp])
+        await credential.update_state()
+        return await redirect(url_for('offers'))
+    else:
+        pendiente = None
+        aceptada = None
+        curp = list(sre_model.connection.keys())[0]
+        credential = await IssuerCredential.deserialize(sre_model.cred_iss)
+        credential_state = await credential.get_state()
+        if credential_state != State.RequestReceived:
+            pendiente = True
+        else:
+            aceptada = True
+        return await render_template('sre_offers.html', pendiente=pendiente, aceptada=aceptada, curp=sre_model)
 
 
 if __name__ == "__main__":
